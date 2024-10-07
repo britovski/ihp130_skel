@@ -1,4 +1,4 @@
-#!\bin\bash
+#!/bin/bash
 
 echo "Open Source Silicon tools installation for IHP130 PDK will begin..."
 
