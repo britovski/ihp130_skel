@@ -36,7 +36,7 @@ yum install git -y
 
 yum install libgit2-devel -y
 
-yum install xterm libjpeg-devel -y
+yum install gvim xterm libjpeg-devel -y
 
 echo "Downloading tools..."
 
