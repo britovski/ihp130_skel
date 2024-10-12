@@ -31,6 +31,7 @@ Step 2. Run the 'minimal_opentools.sh' as root and them run the 'ihp130_workarea
         ./ihp130_workarea.sh
 
 *** Just for old Centos users
+
 Since the EOL of Centos 7, it is possible that you have problems with yum repository when execute the first script from step 2. So, if it is the case, just copy the CentOS-Base.repo on the /etc/yum.repos.d folder (we provided this file on extras folder in this repository) before execute the scripts.
 
         sudo cp CentOS-Base.repo /etc/yum.repos.d
