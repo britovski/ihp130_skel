@@ -64,7 +64,7 @@ wget https://www.klayout.org/downloads/source/klayout-0.29.0.tar.gz
 wget -O xschem-3.4.5.tar.gz https://github.com/StefanSchippers/xschem/archive/refs/tags/3.4.5.tar.gz
 
 #wget http://download.tuxfamily.org/gaw/download/gaw3-20220315.tar.gz
-#consertar gaw
+wget https://github.com/britovski/ihp130_skel/raw/refs/heads/main/extras/gaw3-20220315.tar.gz
 
 wget https://datashare.tu-dresden.de/s/deELsiBGyitSS3o/download/openvaf_devel-x86_64-unknown-linux-gnu.tar.gz
 
