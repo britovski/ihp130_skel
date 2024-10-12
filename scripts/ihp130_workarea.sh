@@ -23,7 +23,10 @@ sudo pip3.11 install psutil
 #export PDK=$PDK_ROOT/ihp-sg13g2
 
 cd $PDK_ROOT/$PDK/libs.tech/xschem
-python3 install.py
+python3.11 install.py
+
+cd $PDK_ROOT/$PDK/libs.tech/qucs
+python3.11 install.py
 
 cd ~/
 
