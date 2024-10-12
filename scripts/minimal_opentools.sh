@@ -23,18 +23,26 @@ cd opentools
 echo "Solving dependencies..."
 yum update -y
 yum upgrade -y
-yum install gcc gcc-c++ autoconf automake patch patchutils indent libtool python3 cmake git -y
+yum install gcc gcc-c++ autoconf automake patch patchutils libtool python3 cmake git -y
 yum install mesa-libGL mesa-libGLU mesa-libGLU-devel libXp libXp-devel libXmu-devel tcl tk tcl-devel tk-devel cairo cairo-devel -y
 yum install graphviz libXaw-devel readline-devel flex bison -y
-yum install openmpi openmpi-devel openmpi3 openmpi3-devel -y #use if you want multi-core support
-yum install qt-devel ruby ruby-devel python3-devel qt qt-x11 gtk3-devel -y
+yum install openmpi openmpi-devel -y #use if you want multi-core support
+yum install python3.11 python3.11-devel python3.11-pip -y
+yum install qt5-qtbase qt5-qtbase-devel qt5-qtmultimedia qt5-qtmultimedia-devel qt5-qtxmlpatterns qt5-qtxmlpatterns-devel qt5-qtsvg qt5-qtsvg-devel qt5-qttools qt5-qttools-devel -y
+yum install ruby ruby-devel gtk3-devel -y 
+#python3-devel
 
 #git2
-yum install https://packages.endpointdev.com/rhel/7/os/x86_64/endpoint-repo.x86_64.rpm -y
-yum install git -y
+#yum install https://packages.endpointdev.com/rhel/7/os/x86_64/endpoint-repo.x86_64.rpm -y
+#yum install git -y
 ###
 
-yum install libgit2-devel -y
+#yum install libgit2-devel -y
+
+#qt5-charts for qucs-s
+yum install epel-release -y
+yum install qt5-qtcharts qt5-qtcharts-devel -y
+###
 
 yum install gvim xterm libjpeg-devel -y
 
@@ -49,11 +57,14 @@ wget -O ngspice-43.tar.gz https://sourceforge.net/projects/ngspice/files/ng-spic
 #wget http://opencircuitdesign.com/netgen/archive/netgen-1.5.281.tgz
 #http://opencircuitdesign.com/netgen/archive/netgen-1.5.155.tgz
 
-wget https://www.klayout.org/downloads/CentOS_7/klayout-0.29.0-0.x86_64.rpm
+#wget https://www.klayout.org/downloads/CentOS_7/klayout-0.29.0-0.x86_64.rpm
+
+wget https://www.klayout.org/downloads/source/klayout-0.29.0.tar.gz
 
 wget -O xschem-3.4.5.tar.gz https://github.com/StefanSchippers/xschem/archive/refs/tags/3.4.5.tar.gz
 
-wget http://download.tuxfamily.org/gaw/download/gaw3-20220315.tar.gz
+#wget http://download.tuxfamily.org/gaw/download/gaw3-20220315.tar.gz
+#consertar gaw
 
 wget https://datashare.tu-dresden.de/s/deELsiBGyitSS3o/download/openvaf_devel-x86_64-unknown-linux-gnu.tar.gz
 
@@ -72,7 +83,7 @@ rm -f openvaf_devel-x86_64-unknown-linux-gnu.tar.gz
 
 tar zxvpf ngspice-43.tar.gz
 cd ngspice-43
-./configure --with-x --enable-xspice --enable-cider --enable-openmp --with-readline=yes --enable-predictor --enable-osdi
+./configure --with-x --enable-xspice --enable-cider --enable-openmp --with-readline=yes --enable-predictor --enable-osdi --enable-pss
 make -j$(nproc)
 make install
 if [ $? -ne 0 ]; then
@@ -111,6 +122,7 @@ fi
 cd ..
 rm -f xschem-3.4.5.tar.gz
 
+
 echo "Installing gaw..."
 tar zxvpf gaw3-20220315.tar.gz
 cd gaw3-20220315
@@ -125,12 +137,35 @@ cd ..
 rm -f gaw3-20220315.tar.gz
 
 echo "Installing KLayout..."
-yum localinstall klayout-0.29.0-0.x86_64.rpm -y
+#yum localinstall klayout-0.29.0-0.x86_64.rpm -y
+tar zxvpf klayout-0.29.0.tar.gz
+cd klayout-0.29.0
+./build.sh -without-qtbinding -nolibgit2 -python python3.11 -prefix /usr/local/bin
 if [ $? -ne 0 ]; then
     echo "Failed to install KLayout."
     exit 1
 fi
 rm -f klayout-0.29.0-0.x86_64.rpm
 
+echo "Installing qucs-s"
+wget http://ftp.gnu.org/pub/gnu/gperf/gperf-3.1.tar.gz
+git clone https://github.com/ra3xdh/qucs_s.git
+tar zxvpf gperf-3.1.tar.gz
+cd gperf-3.1
+./configure
+make
+make install
+cd ..
+rm -rf gperf*
+cd qucs_s
+git submodule init
+git submodule update
+mkdir builddir
+cd builddir
+cmake ..
+make -j $(nproc)
+make install
+cd ..
+
 echo "Minimal EDA open source tools installation done!"
-echo "Back to user and run the 'minimal_sky130_skel.sh' script"
+echo "Back to user and run the 'ihp130_workarea.sh' script"

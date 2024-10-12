@@ -17,6 +17,8 @@ echo "export KLAYOUT_PATH=\"\$HOME/.klayout:\$PDK_ROOT/\$PDK/libs.tech/klayout\"
 echo "export KLAYOUT_HOME=\$HOME/.klayout" >> ~/.bashrc
 source ~/.bashrc
 
+sudo pip3.11 install psutil
+
 #export PDK_ROOT=~/IHP-Open-PDK
 #export PDK=$PDK_ROOT/ihp-sg13g2
 
