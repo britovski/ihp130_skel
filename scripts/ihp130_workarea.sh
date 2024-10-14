@@ -2,10 +2,10 @@
 
 echo "Setting up IHP PDK user workarea"
 
-if [[ $EUID -ne 1000 ]]; then
-   echo "This script must be run as user"
-   exit 1
-fi
+#if [[ $EUID -ne 1000 ]]; then
+#   echo "This script must be run as user"
+#   exit 1
+#fi
 
 cd ~/
 
@@ -17,7 +17,9 @@ echo "export KLAYOUT_PATH=\"\$HOME/.klayout:\$PDK_ROOT/\$PDK/libs.tech/klayout\"
 echo "export KLAYOUT_HOME=\$HOME/.klayout" >> ~/.bashrc
 source ~/.bashrc
 
-sudo pip3.11 install psutil
+pip3.11 install psutil
+pip3.11 install docopt
+pip3.11 install klayout
 
 #export PDK_ROOT=~/IHP-Open-PDK
 #export PDK=$PDK_ROOT/ihp-sg13g2
