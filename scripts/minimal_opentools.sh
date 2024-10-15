@@ -140,7 +140,7 @@ echo "Installing KLayout..."
 #yum localinstall klayout-0.29.0-0.x86_64.rpm -y
 tar zxvpf klayout-0.29.0.tar.gz
 cd klayout-0.29.0
-./build.sh -without-qtbinding -nolibgit2 -python python3.11 -prefix /usr/local/bin
+./build.sh -with-qtbinding -nolibgit2 -python python3.11 -prefix /usr/local/bin
 if [ $? -ne 0 ]; then
     echo "Failed to install KLayout."
     exit 1
